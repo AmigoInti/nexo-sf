@@ -741,7 +741,27 @@ https://doi.org/10.1519/JSC.0000000000001049
 # ---------------------------------------------------------------------------
 # AJUSTES
 # ---------------------------------------------------------------------------
+PUBLIC_URL = "https://nexo-sf.streamlit.app"
+
+
+def share_block():
+    """Código QR con el link público (para la presentación). Usa segno si está instalado."""
+    eyebrow("Compartir")
+    try:
+        import segno
+        svg = segno.make(PUBLIC_URL, error="m").svg_inline(scale=7, dark="#0A0A0A", light="#F5F5F5", border=3)
+        st.markdown(f"""<div style="display:flex; flex-direction:column; align-items:center; gap:.6rem;
+            background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:1.2rem;">
+            <div style="border-radius:6px; overflow:hidden; line-height:0">{svg}</div>
+            <div class="nx-load" style="margin:0">Escanea y prueba NEXO SF</div>
+            <div style="color:var(--muted); font-size:.9rem">{PUBLIC_URL.replace("https://", "")}</div></div>""",
+                    unsafe_allow_html=True)
+    except Exception:  # segno no instalado (o versión distinta): mostrar solo el link
+        st.info(f"Link público: {PUBLIC_URL}  \n(Instala `segno` para ver el código QR aquí.)")
+
+
 def page_settings():
+    share_block()
     eyebrow("Objetivos por ejercicio")
     lift_key = choice("Ejercicio", list(LIFTS), key="cfg_lift", format_func=lift_label)
     cfg = db.get_lift_config(lift_key)
