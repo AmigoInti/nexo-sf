@@ -173,6 +173,7 @@ table.nx-warm tr.w td:first-child {color: var(--text);}
   .block-container {padding-top: 1.6rem !important;}
   .nx-kpi .v {font-size:1.35rem;}
   .nx-kpi {padding:.6rem .65rem;}
+  .stButton button p, .stFormSubmitButton button p, .stDownloadButton button p {letter-spacing:.05em; font-size:.98rem !important;}
   .nx-kpi .l {font-size:.62rem; letter-spacing:.06em;}
 }
 </style>
